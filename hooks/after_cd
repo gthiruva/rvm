@@ -11,3 +11,11 @@ do
     __rvm_conditionally_do_with_env . "${after_cd_hook}" >&2
   fi
 done
+
+bundle_base=$(dirname $(dirname $(gem which bundler)))
+export BUNDLE_BIN_PATH="${bundle_base}/bin/bundle"
+if test -f $PWD/Gemfile
+then
+  export BUNDLE_GEMFILE="$PWD/Gemfile"
+fi
+export RUBYOPT="-I${bundle_base}/lib -rbundler/setup"
